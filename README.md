@@ -1,6 +1,9 @@
 # duolingoAHK
 Does the Sound Sabotage radio lesson (Spanish Section 4 Unit 1) 34 times to get 1000xp in about 45 min
 
+# Warning
+I am not liable for anything going wrong, open an issue if you have one. Make sure you are using DARK MODE or else this will not work. 
+
 # How do you use this?
 https://autohotkey.com
 
