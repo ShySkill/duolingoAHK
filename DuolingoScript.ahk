@@ -1,8 +1,10 @@
 ﻿#SingleInstance Force
 
 F2::
-    Loop, 3{
+    num := Random(1, 5)
+    Loop, num{
         MainLoop()
+        msgbox, Its time to do a lesson to make him less suspicioushow 
     }
 
 SendStrokes(number){
