@@ -1,7 +1,7 @@
 ﻿#SingleInstance Force
 
 F2::
-    Loop, 34{
+    Loop, 3{
         MainLoop()
     }
 
