@@ -1,11 +1,12 @@
-﻿#SingleInstance Force
+#SingleInstance Force
 
 F2::
-    num := Random(1, 5)
-    Loop, num{
+    Loop, 30{
         MainLoop()
-        msgbox, Its time to do a lesson to make him less suspicioushow 
     }
+    msgbox, Its time to do a lesson to make him less suspicious
+    return 
+
 
 SendStrokes(number){
     Send, {%number%}
@@ -29,14 +30,15 @@ SendStrokes(number){
 MainLoop(){
     CoordMode, Pixel, Screen
     tester := 0
-    imagesearch, x, y, 0, 0, 1366, 768, images\review.PNG
+    imagesearch, x, y, 0, 0, 1920, 1080, images\review.PNG
     if(ErrorLevel = 0){
         tester := 1
     }
 
-    imagesearch, x, y, 0, 0, 1366, 768, images\radio.PNG
-    ImageWidth := 1366  ;
-    ImageHeight := 768  ; 
+
+    imagesearch, x, y, 0, 0, 1920, 1080, images\radio.PNG
+    ImageWidth := 1920  ;
+    ImageHeight := 1080  ; 
     ImageCenterX := x + 50
     ImageCenterY := y + 50
 
@@ -50,7 +52,7 @@ MainLoop(){
     Send, {Enter}
 
     Sleep, 19000
-    ImageSearch, FoundX, FoundY, 0, 0, 1366, 768, images\multchoice.PNG
+    ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, images\multchoice.PNG
     if (ErrorLevel = 0) {
         SendStrokes(1)
         SendStrokes(2)
@@ -58,7 +60,7 @@ MainLoop(){
         SendStrokes(4)
     }
     Sleep, 10000
-    ImageSearch, FoundX, FoundY, 0, 0, 1366, 768, images\select.PNG
+    ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, images\select.PNG
     if (ErrorLevel = 0) {
         Loop, 5{
             Send, %A_Index%
@@ -66,14 +68,14 @@ MainLoop(){
         }
     }
     Sleep, 32000
-    ImageSearch, FoundX, FoundY, 0, 0, 1366, 768, images\compre.PNG
+    ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, images\compre.PNG
     if(ErrorLevel = 0){
         Send, {1}
         Send, {2}
     }
 
     Sleep, 19000
-    ImageSearch, FoundX, FoundY, 0, 0, 1366, 768, images\trato.PNG
+    ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, images\trato.PNG
     if(ErrorLevel = 0){
         Send, {1}
         Send, {2}
@@ -81,21 +83,55 @@ MainLoop(){
     }
 
     Sleep, 15000
-    ImageSearch, FoundX, FoundY, 0, 0, 1366, 768, images\continue.PNG
+    ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, images\continue.PNG
     if(ErrorLevel = 0){
-        Send, {Enter}
-        Sleep, 2000
-        Send, {Enter}
-        Sleep, 2000
-        Send, {Enter}
-        Sleep, 2000
-        Send, {Enter}
-        Sleep, 2000
+        Loop, 6{
+            Send, {Enter}
+            Sleep, 2000
+        }
+    }else{
+        Loop, 6{
+            Send, {Enter}
+            Sleep, 2000
+        }
     }
 
-
+    SendWebhook(descriptionText)
 
 }
+
+SendWebhook(descriptionText)
+{
+    url := "https://discord.com/api/webhooks/1232831330241220648/v9VJBFJtriTFMnNDpDLr3-yGgP-ZOezfWuQTr6Pc6W4CR9ogBmiSgEgcECUZAo_qgGco"
+    string := "Completed lessons:" . count
+    postdata=
+    (
+    {
+    "embeds": [
+        {
+        "title": "Finished a lesson in Duolingo!",
+        "description": "Completed one lesson for 30xp",
+        "url": "https://www.duolingo.com/",
+        "color": 8280002,
+        "thumbnail": {
+            "url": "https://i.imgur.com/rGxIH62.png"
+        },
+        "image": {
+            "url": "https://i.imgur.com/KiRApYa.jpg"
+        }
+        }
+    ]
+    }
+    )
+
+    WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+    WebRequest.Open("POST", url, false)
+    WebRequest.SetRequestHeader("Content-Type", "application/json")
+    WebRequest.Send(postdata)       
+}
+
+
+
 
 
 return
@@ -103,4 +139,3 @@ return
 
 b::
     Esc::ExitApp
-
