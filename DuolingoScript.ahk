@@ -102,7 +102,7 @@ MainLoop(){
 
 SendWebhook(descriptionText)
 {
-    url := "https://discord.com/api/webhooks/1232831330241220648/v9VJBFJtriTFMnNDpDLr3-yGgP-ZOezfWuQTr6Pc6W4CR9ogBmiSgEgcECUZAo_qgGco"
+    url := "https://discord.com/api/webhooks/ENTERWEBHOOKHERE"
     string := "Completed lessons:" . count
     postdata=
     (
